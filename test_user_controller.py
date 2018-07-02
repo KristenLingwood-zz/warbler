@@ -37,21 +37,23 @@ class UserController(TestCase):
         db.drop_all()
 
     def login(self, username, password):
+        """test user logs in"""
         return self.client.post(
             '/login',
             data=dict(username=username, password=password),
             follow_redirects=True)
 
     def logout(self):
+        """test user logs out"""
         return self.client.get('/logout', follow_redirects=True)
 
     def test_login_logout(self):
+        """tests that test user was logged in/out correctly"""
         result = self.login('tgif', 'password')
-        # print(result.data)
         self.assertIn(b'Log out', result.data)
-        # result = self.logout()
-        # self.assertIn(b'You have successfully logged out.', result.data)
-        # result = self.login('adminx', 'default')
+
+        result = self.logout()
+        self.assertIn(b'You have successfully logged out.', result.data)
 
 
 if __name__ == '__main__':

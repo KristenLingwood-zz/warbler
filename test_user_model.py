@@ -32,6 +32,7 @@ class UserModelAttributes(unittest.TestCase):
         db.drop_all()
 
     def test_create_User(self):
+        """tests that a new user was created"""
         found_user = User.query.filter_by(username="tgif")
         self.assertIsNotNone(found_user)
 
